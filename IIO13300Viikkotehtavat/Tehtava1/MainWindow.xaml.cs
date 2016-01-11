@@ -24,5 +24,31 @@ namespace Tehtava1
     {
       InitializeComponent();
     }
-  }
+
+        private void btnCalculate_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+            try
+            {
+                double result;
+                result = BusinessLogicWindow.CalculatePerimeter(1, 1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                //yield to an user that everything okay
+            }
+        }
+    }
+
+    public class BusinessLogicWindow
+    {
+        public static double CalculatePerimeter(double widht, double height)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

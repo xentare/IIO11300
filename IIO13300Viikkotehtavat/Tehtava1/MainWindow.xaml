@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="Oy K-S Windows Ab" Height="350" Width="525" >
     <Grid >
-        <Button x:Name="btnCalculate" Content="Laske pinta-ala ja piiri" Height="36" Width="200"/>
+        <Button x:Name="btnCalculate" Content="Laske pinta-ala ja piiri" Height="36" Width="200" Click="btnCalculate_Click"/>
     </Grid>
 </Window>
