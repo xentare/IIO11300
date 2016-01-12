@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+* Copyright (C) JAMK/IT/Esa Salmikangas
+* This file is part of the IIO11300 course project.
+* Created: 12.1.2015
+* Authors: Esa Salmikangas
+*/using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,11 +47,19 @@ namespace Tehtava1
                 //yield to an user that everything okay
             }
         }
-    }
 
-    public class BusinessLogicWindow
+    private void btnClose_Click(object sender, RoutedEventArgs e)
     {
-        public static double CalculatePerimeter(double widht, double height)
+
+    }
+  }
+
+  public class BusinessLogicWindow
+    {
+    /// <summary>
+    /// CalculatePerimeter calculates the perimeter of a window
+    /// </summary>
+    public static double CalculatePerimeter(double widht, double height)
         {
             throw new System.NotImplementedException();
         }

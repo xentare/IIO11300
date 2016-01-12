@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tehtava1"
         mc:Ignorable="d"
-        Title="Oy K-S Windows Ab" Height="350" Width="525" >
-    <Grid >
-        <Button x:Name="btnCalculate" Content="Laske pinta-ala ja piiri" Height="36" Width="200" Click="btnCalculate_Click"/>
-    </Grid>
+        Title="Oy K-S Windows Ab" Height="350" Width="525" FontSize="18">
+    <Grid>
+    <StackPanel Orientation="Horizontal">
+      <StackPanel Orientation="Vertical">
+        <TextBlock x:Name="tbWidht" Text="Ikkunan leveys" Height="28" Margin="10,10,10,0" />
+        <TextBox x:Name="txtWidht" Text="600" Height="28" Width="200" Margin="10,10,10,0" />
+      </StackPanel>
+      <StackPanel Orientation="Vertical">
+        <Button x:Name="btnCalculate" Content="Laske pinta-ala ja piiri" Height="32" Width="180" Click="btnCalculate_Click" Margin="10,10,10,0"/>
+        <Button x:Name="btnClose" Content="Sulje" Height="32" Width="180" Click="btnClose_Click" Margin="10,10,10,0"/>
+      </StackPanel>
+    </StackPanel>
+  </Grid>
 </Window>
