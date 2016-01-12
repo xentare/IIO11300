@@ -10,7 +10,7 @@
     <StackPanel Orientation="Horizontal">
       <StackPanel Orientation="Vertical">
         <TextBlock x:Name="tbWidht" Text="Ikkunan leveys" Height="28" Margin="10,10,10,0" />
-        <TextBox x:Name="txtWidht" Text="600" Height="28" Width="200" Margin="10,10,10,0" />
+        <TextBox x:Name="txtWidht" Text="600" Height="28" Width="114" Margin="10,10,10,0" />
       </StackPanel>
       <StackPanel Orientation="Vertical">
         <Button x:Name="btnCalculate" Content="Laske pinta-ala ja piiri" Height="32" Width="180" Click="btnCalculate_Click" Margin="10,10,10,0"/>
