@@ -1,9 +1,10 @@
 ﻿/*
 * Copyright (C) JAMK/IT/Esa Salmikangas
 * This file is part of the IIO11300 course project.
-* Created: 12.1.2015
-* Authors: Esa Salmikangas
-*/using System;
+* Created: 12.1.2016 Modified: 13.1.2016
+* Authors: Tero ,Esa Salmikangas
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
