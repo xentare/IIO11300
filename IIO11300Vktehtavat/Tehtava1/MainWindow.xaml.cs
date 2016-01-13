@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,8 +31,16 @@ namespace Tehtava1
     public MainWindow()
     {
       InitializeComponent();
+      IniMyStuff();
     }
-
+    private void IniMyStuff()
+    {
+      //comboon värejä
+      Type colorsType = typeof(System.Windows.Media.Colors);
+      PropertyInfo[] colorsTypePropertyInfos = colorsType.GetProperties(BindingFlags.Public | BindingFlags.Static);
+      foreach (PropertyInfo colorsTypePropertyInfo in colorsTypePropertyInfos)
+        cbSetColor.Items.Add(colorsTypePropertyInfo.Name);
+    }
     private void btnCalculate_Click(object sender, RoutedEventArgs e)
     {
       //TODO
@@ -90,6 +99,16 @@ namespace Tehtava1
           Canvas.SetTop(rect2,(h / 2D) + 5);
         }
       }
+    }
+
+    private void cbSetColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      //vaihdetaan ikkunan väri
+      SolidColorBrush scb = new SolidColorBrush();
+      //KESKEN tämä castaus ei toimi
+      //TODO miten muutetaan käyttäjän valitsema värin nimi Coloriksi?
+      scb.Color = (Color)cbSetColor.SelectedValue;
+      myRectangle.Fill = scb;
     }
   }
 

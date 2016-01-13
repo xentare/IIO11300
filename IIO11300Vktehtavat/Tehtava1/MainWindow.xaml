@@ -13,6 +13,7 @@
         <TextBox x:Name="txtWidht" Text="600" Height="28" Width="114" Margin="10,10,10,0" />
         <TextBlock x:Name="tbHeight" Text="Ikkunan korkeus" Height="28" Margin="10,10,10,0" />
         <TextBox x:Name="txtHeight" Text="600" Height="28" Width="114" Margin="10,10,10,0" />
+        <ComboBox x:Name="cbSetColor" Margin="10,10" SelectionChanged="cbSetColor_SelectionChanged"/>
         <CheckBox x:Name="chkAddCross" Content="Lisää ristikko"/>
         <Button x:Name="btnDraw" Content="Piirrä ikkuna" Height="32" Width="180" Click="btnDraw_Click"  Margin="10,10,10,0"/>
         <Button x:Name="btnCalculate" Content="Laske pinta-ala ja piiri" Height="32" Width="180" Click="btnCalculate_Click" Margin="10,10,10,0"/>
