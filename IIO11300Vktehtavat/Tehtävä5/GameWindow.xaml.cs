@@ -22,7 +22,9 @@ namespace Tehtävä5
     public partial class GameWindow : Window
     {
         MainWindow window;
-        Ellipse snake = new Ellipse();
+        Stack<Ellipse> snake = new Stack<Ellipse>();
+        Ellipse dot = new Ellipse();
+        Line myLine = new Line();
         Key key;
         double x, y;
         Thread thread;
@@ -32,21 +34,41 @@ namespace Tehtävä5
         {
             InitializeComponent();
             this.window = window;
+            createApples();
             thread = new Thread(workingThread);
             thread.Start();
-            DrawRectangle();
+            Draw();
+
         }
 
-        public void DrawRectangle()
+        public void Draw()
         {
-            SolidColorBrush colorBrush = new SolidColorBrush(Color.FromArgb(255, 0, 155, 0));
-            snake.Fill = colorBrush;
-            snake.Width = 25;
-            snake.Height = 25;
-            Canvas.SetTop(snake, 0);
-            Canvas.SetLeft(snake, 0);
-            canvas.Children.Add(snake);
-            createApples();
+            Ellipse head = new Ellipse();
+            snake.Push(head);
+            head.Fill = Brushes.Green;
+            head.Width = 50;
+            head.Height = 50;
+            Canvas.SetTop(head, 0);
+            Canvas.SetLeft(head, 0);
+            canvas.Children.Add(head);
+
+            dot.Fill = Brushes.Black;
+            dot.Width = 5;
+            dot.Height = 5;
+            Canvas.SetTop(dot, 22.5);
+            Canvas.SetLeft(dot, 22.5);
+            canvas.Children.Add(dot);
+
+            myLine.Stroke = Brushes.LightSteelBlue;
+            myLine.X1 = 0;
+            myLine.X2 = 0;
+            myLine.Y1 = 0;
+            myLine.Y2 = 0;
+            myLine.HorizontalAlignment = HorizontalAlignment.Left;
+            myLine.VerticalAlignment = VerticalAlignment.Center;
+            myLine.StrokeThickness = 2;
+            canvas.Children.Add(myLine);
+
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -54,8 +76,9 @@ namespace Tehtävä5
             window.Show();
         }
 
-        private void canvas_KeyDown(object sender, KeyEventArgs e)
+        private void GrowSnake()
         {
+
         }
 
         private void createApples()
@@ -66,8 +89,8 @@ namespace Tehtävä5
             {
                 Ellipse ellipse = new Ellipse();
                 ellipse.Fill = color;
-                ellipse.Width = 10;
-                ellipse.Height = 10;
+                ellipse.Width = 20;
+                ellipse.Height = 20;
                 Canvas.SetTop(ellipse, r.Next(0, 600));
                 Canvas.SetLeft(ellipse, r.Next(0, 1000));
                 apples.Add(ellipse);
@@ -75,7 +98,39 @@ namespace Tehtävä5
             }
         }
 
+        private void MoveApple(Ellipse apple)
+        {
+            Random r = new Random();
+            Canvas.SetTop(apple, r.Next(0, 600));
+            Canvas.SetLeft(apple, r.Next(0, 1000));
+        }
 
+        private void HandleCollasions()
+        {
+            foreach (Ellipse e in apples)
+            {
+                double y = Canvas.GetTop(e) + 10;
+                double x = Canvas.GetLeft(e) + 10;
+                //If the distance between the snake head circle and the apple is less than radius+radius there is a collasion
+                if (Math.Abs(Canvas.GetTop(snake.Last()) +25 - y) < 35 && Math.Abs(Canvas.GetLeft(snake.Last()) +25 - x) < 35)
+                {
+                    MoveApple(e);
+                    GrowSnake();
+                }
+            }
+        }
+
+        private void Update()
+        {
+            switch (key)
+            {
+                case Key.Up: Canvas.SetTop(snake.Last(), y - 5); break;
+                case Key.Down: Canvas.SetTop(snake.Last(), y + 5); break;
+                case Key.Left: Canvas.SetLeft(snake.Last(), x - 5); break;
+                case Key.Right: Canvas.SetLeft(snake.Last(), x + 5); break;
+            }
+            int i = 1;
+        }
 
         public void workingThread()
         {
@@ -83,18 +138,28 @@ namespace Tehtävä5
             {
                 Dispatcher.Invoke((Action)(() =>
                 {
-                    y = Canvas.GetTop(snake);
-                    x = Canvas.GetLeft(snake);
-                    switch (key)
-                {
-                    case Key.Up: Canvas.SetTop(snake, y - 5); break;
-                    case Key.Down: Canvas.SetTop(snake, y + 5); break;
-                    case Key.Left: Canvas.SetLeft(snake, x - 5); break;
-                    case Key.Right: Canvas.SetLeft(snake, x + 5); break;
-                }
+                    y = Canvas.GetTop(snake.Last());
+                    x = Canvas.GetLeft(snake.Last());
+                    Update();
+                    DrawDemos();
+                    HandleCollasions();
                 }));
-                Thread.Sleep(100);
+                Thread.Sleep(25);
             }
+        }
+
+        private void DrawDemos()
+        {
+            Canvas.SetLeft(dot, Canvas.GetLeft(snake.Last()) + 22.5);
+            Canvas.SetTop(dot, Canvas.GetTop(snake.Last()) + 22.5);
+
+            myLine.Y1 = Canvas.GetTop(snake.Last()) + 25;
+            myLine.Y2 = Canvas.GetTop(apples[0]) + 10;
+            myLine.X1 = Canvas.GetLeft(snake.Last()) + 25;
+            myLine.X2 = Canvas.GetLeft(apples[0]) + 10;
+
+
+
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
