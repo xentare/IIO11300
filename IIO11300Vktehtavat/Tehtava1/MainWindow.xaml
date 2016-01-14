@@ -1,24 +1,25 @@
-﻿<Window x:Class="Tehtava1.MainWindow"
+﻿<Window x:Name="mainWindow" x:Class="Tehtävä1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Tehtava1"
+        xmlns:local="clr-namespace:Tehtävä1"
         mc:Ignorable="d"
-        Title="Oy K-S Windows Ab" Height="350" Width="700" FontSize="18">
+        Title="Keski-Suomen ikkunat Oy" Height="350" Width="525">
     <Grid>
-    <StackPanel Orientation="Horizontal">
-      <StackPanel Orientation="Vertical">
-        <TextBlock x:Name="tbWidht" Text="Ikkunan leveys" Height="28" Margin="10,10,10,0" />
-        <TextBox x:Name="txtWidht" Text="600" Height="28" Width="114" Margin="10,10,10,0" />
-      </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <Rectangle x:Name="myRectangle" Fill="#FF10ABF3" StrokeThickness="2" Width="300" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Stroke="Black" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
-        <Button x:Name="btnCalculate" Content="Laske pinta-ala ja piiri" Height="32" Width="180" Click="btnCalculate_Click" Margin="10,10,10,0"/>
-        <Button x:Name="btnClose" Content="Sulje" Height="32" Width="180" Click="btnClose_Click" Margin="10,10,10,0"/>
-      </StackPanel>
-    </StackPanel>
-  </Grid>
+        <TextBox x:Name="windowWidth" HorizontalAlignment="Left" Height="23" Margin="425,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
+        <Label x:Name="label" Content="Ikkunan leveys (L):" HorizontalAlignment="Left" Margin="289,8,0,0" VerticalAlignment="Top" Width="131" Height="25"/>
+        <TextBox x:Name="windowHeight" HorizontalAlignment="Left" Height="23" Margin="425,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
+        <Label x:Name="label1" Content="Ikkunan korkeus (H):" HorizontalAlignment="Left" Margin="289,38,0,0" VerticalAlignment="Top" Width="136"/>
+        <TextBox x:Name="frameWidth" HorizontalAlignment="Left" Height="23" Margin="425,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
+        <Label x:Name="label2" Content="Karmipuun leveys (W):" HorizontalAlignment="Left" Margin="289,66,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="calculate" Content="Calculate" HorizontalAlignment="Left" Margin="343,119,0,0" VerticalAlignment="Top" Width="118" Click="button_Click"/>
+        <Label x:Name="label3" Content="Ikkunan pinta-ala:" HorizontalAlignment="Left" Margin="289,159,0,0" VerticalAlignment="Top" Width="116"/>
+        <Label x:Name="label4" Content="Karmin piiri:" HorizontalAlignment="Left" Margin="289,218,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label5" Content="Karmin pinta-ala:" HorizontalAlignment="Left" Margin="289,249,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.469,0.507"/>
+        <TextBlock x:Name="windowArea" HorizontalAlignment="Left" Margin="411,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="87"/>
+        <TextBlock x:Name="frameRing" HorizontalAlignment="Left" Margin="411,223,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="87"/>
+        <TextBlock x:Name="frameArea" HorizontalAlignment="Left" Margin="411,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="87"/>
+
+    </Grid>
 </Window>

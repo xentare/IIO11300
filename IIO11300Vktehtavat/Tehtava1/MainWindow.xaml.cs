@@ -1,10 +1,4 @@
-﻿/*
-* Copyright (C) JAMK/IT/Esa Salmikangas
-* This file is part of the IIO11300 course project.
-* Created: 12.1.2016 Modified: 13.1.2016
-* Authors: Tero ,Esa Salmikangas
-*/
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,51 +13,53 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Tehtava1
+namespace Tehtävä1
 {
-  /// <summary>
-  /// Interaction logic for MainWindow.xaml
-  /// </summary>
-  public partial class MainWindow : Window
-  {
-    public MainWindow()
-    {
-      InitializeComponent();
-    }
-
-        private void btnCalculate_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO
-            try
-            {
-                double result;
-                result = BusinessLogicWindow.CalculatePerimeter(1, 1);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                //yield to an user that everything okay
-            }
-        }
-
-    private void btnClose_Click(object sender, RoutedEventArgs e)
-    {
-      Application.Current.Shutdown();
-    }
-  }
-
-  public class BusinessLogicWindow
-    {
     /// <summary>
-    /// CalculatePerimeter calculates the perimeter of a window
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public static double CalculatePerimeter(double widht, double height)
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
         {
-            throw new System.NotImplementedException();
-            ///&/&&asdasdasdsfsdfsdsdfsdf
+            InitializeComponent();
         }
+
+        private bool isOkay(string syote, TextBox sender)
+        {
+            double luku = 0;
+            if (syote.Length > 0 && double.TryParse(syote, out luku))
+            {
+                return true;
+
+            }
+            else
+            {
+                MessageBox.Show("Tarkista syöte!");
+                sender.Focus();
+                return false;
+            }
+        }
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            try {
+                int width = Int32.Parse(windowWidth.Text);
+                int height = Int32.Parse(windowHeight.Text);
+                int frame = Int32.Parse(frameWidth.Text);
+
+                int winArea = (width - frame) * (height - frame);
+
+                windowArea.Text = (winArea).ToString();
+                frameRing.Text = (width * 2 + height * 2).ToString();
+                frameArea.Text = (width * height - winArea).ToString();
+
+            }
+            catch (Exception a)
+            {
+                Console.WriteLine("{0} Exception caught.", a);
+                MessageBox.Show("Vain kokonaislukuja");
+            }
+        }
+
     }
 }
