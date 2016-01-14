@@ -1,0 +1,26 @@
+﻿<Window x:Class="Tehtävä3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tehtävä3"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="390.046" Width="443.307">
+    <Grid>
+        <TextBox x:Name="txtBoxFolder" HorizontalAlignment="Left" Height="23" Margin="81,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="344"/>
+        <Label x:Name="label" Content="Hakemisto" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="Löydetyt tiedostot" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,74,0,0"/>
+        <Button x:Name="btnCombineFiles" Content="Yhdistä tiedostot" HorizontalAlignment="Left" VerticalAlignment="Top" Width="314" Margin="111,306,0,0" Click="btnCombineFiles_Click"/>
+        <Label x:Name="label2" Content="Tulostiedosto" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,275,0,0"/>
+        <TextBox x:Name="txtBoxResultFile" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" Margin="111,278,0,0"/>
+        <Button x:Name="btnGetFiles" Content="Hae tidostot" HorizontalAlignment="Left" VerticalAlignment="Top" Width="344" Margin="81,41,0,0" Click="btnGetFiles_Click"/>
+        <StatusBar HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="435" Margin="0,331,0,0">
+            <StatusBarItem x:Name="statusBarItem">
+                <TextBlock x:Name="txtBlockStatusBar" Width="428" Height="15"/>
+            </StatusBarItem>
+        </StatusBar>
+        
+        <ListBox x:Name="listBoxFiles" SelectionMode="Multiple" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="408" Margin="17,100,0,0"/>
+
+    </Grid>
+</Window>
