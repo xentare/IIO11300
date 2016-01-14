@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Tehtävä7.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="viiniData" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">"C:\Users\H4113\IIO11300\IIO11300Vktehtavat\Tehtävä7\viinit.xml"</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,30 @@
+﻿<Window x:Class="Tehtävä4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tehtävä4"
+        mc:Ignorable="d"
+        Title="Lätkäjätkät" Height="371.768" Width="525">
+    <Grid RenderTransformOrigin="0.518,0.494" Height="347" VerticalAlignment="Top">
+        <Label x:Name="label" Content="Etunumi" HorizontalAlignment="Left" Margin="18,24,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="Sukunimi" HorizontalAlignment="Left" Margin="18,50,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label2" Content="Siirtohinta" HorizontalAlignment="Left" Margin="18,76,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label3" Content="Seura" HorizontalAlignment="Left" Margin="18,103,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,0.515"/>
+        <ComboBox x:Name="seuraComboBox" HorizontalAlignment="Left" Margin="107,107,0,0" VerticalAlignment="Top" Width="120" Loaded="siirtohintaComboBox_Loaded" SelectionChanged="siirtohintaComboBox_SelectionChanged"/>
+        <Button x:Name="uusiPelaaja" Content="Luo uusi pelaaja" HorizontalAlignment="Left" Margin="232,24,0,0" VerticalAlignment="Top" Width="98" Click="uusiPelaaja_Click"/>
+        <Button x:Name="talletaPelaajaButton" Content="Talleta pelaaja" HorizontalAlignment="Left" Margin="232,46,0,0" VerticalAlignment="Top" Width="98" Click="talletaPelaajaButton_Click"/>
+        <Button x:Name="poistaPelaajaButton" Content="Poista pelaaja" HorizontalAlignment="Left" Margin="232,68,0,0" VerticalAlignment="Top" Width="98" Click="poistaPelaajaButton_Click"/>
+        <Button x:Name="kirjoitaPelaajaButton" Content="Kirjoita pelaajat" HorizontalAlignment="Left" Margin="232,90,0,0" VerticalAlignment="Top" Width="98" Click="kirjoitaPelaajaButton_Click"/>
+        <Button x:Name="lopetaButton" Content="Lopetus" HorizontalAlignment="Left" Margin="232,112,0,0" VerticalAlignment="Top" Width="98" Click="lopetaButton_Click"/>
+        <StackPanel HorizontalAlignment="Left" Height="73" Margin="107,29,0,0" VerticalAlignment="Top" Width="120">
+            <TextBox x:Name="etunimiTextBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="sukunimiTextBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="siirtohintaTextBox" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        </StackPanel>
+        <ListBox x:Name="pelaajatListbox" HorizontalAlignment="Left" Height="110" Margin="335,24,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="pelaajatListbox_SelectionChanged"/>
+        <StatusBar x:Name="statusBar" HorizontalAlignment="Left" Margin="0,313,0,10" Width="517">
+            <TextBlock x:Name="statusBarTextBlock" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
+        </StatusBar>
+    </Grid>
+</Window>
