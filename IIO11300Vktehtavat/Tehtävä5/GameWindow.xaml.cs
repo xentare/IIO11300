@@ -48,7 +48,7 @@ namespace Tehtävä5
 
         public void Initialize(int length)
         {
-            for (int i = 0; i <= length; i++)
+            for (int i = length; i >= 0; i--)
             {
                 Rectangle head = new Rectangle();
                 head.Fill = Brushes.Green;
@@ -56,7 +56,7 @@ namespace Tehtävä5
                 head.Height = snakeSize.Y;
                 snake.Add(head);
                 Canvas.SetTop(head, 0);
-                Canvas.SetLeft(head, 0);
+                Canvas.SetLeft(head, i*snakeSize.X);
                 canvas.Children.Add(head);
             }
         }
@@ -121,9 +121,12 @@ namespace Tehtävä5
                     GameOver();
                 }
                 //Self
-                for(int i = 0; i < snake.Count; i++)
+                for(int i = 1; i < snake.Count; i++)
                 {
-                    Canvas.GetTop(snake[i]);
+                    if(Canvas.GetTop(snake[0]) == Canvas.GetTop(snake[i]) && Canvas.GetLeft(snake[0]) == Canvas.GetLeft(snake[i]))
+                    {
+                        GameOver();
+                    }
                 }
 
             }
