@@ -22,53 +22,43 @@ namespace Tehtävä5
     public partial class GameWindow : Window
     {
         MainWindow window;
-        Stack<Ellipse> snake = new Stack<Ellipse>();
-        Ellipse dot = new Ellipse();
-        Line myLine = new Line();
+        List<Rectangle> snake = new List<Rectangle>();
         Key key;
         double x, y;
         Thread thread;
-        List<Ellipse> apples = new List<Ellipse>();
+        Vector snakeSize = new Vector();
+        Vector appleSize = new Vector();
+        List<Rectangle> apples = new List<Rectangle>();
+        int speed;
 
         public GameWindow(MainWindow window)
         {
             InitializeComponent();
             this.window = window;
-            createApples();
             thread = new Thread(workingThread);
             thread.Start();
-            Draw();
-
+            snakeSize.X = 20;
+            snakeSize.Y = 20;
+            appleSize.X = 20;
+            appleSize.Y = 20;
+            speed = 250;
+            createApples();
+            Initialize(3);
         }
 
-        public void Draw()
+        public void Initialize(int length)
         {
-            Ellipse head = new Ellipse();
-            snake.Push(head);
-            head.Fill = Brushes.Green;
-            head.Width = 50;
-            head.Height = 50;
-            Canvas.SetTop(head, 0);
-            Canvas.SetLeft(head, 0);
-            canvas.Children.Add(head);
-
-            dot.Fill = Brushes.Black;
-            dot.Width = 5;
-            dot.Height = 5;
-            Canvas.SetTop(dot, 22.5);
-            Canvas.SetLeft(dot, 22.5);
-            canvas.Children.Add(dot);
-
-            myLine.Stroke = Brushes.LightSteelBlue;
-            myLine.X1 = 0;
-            myLine.X2 = 0;
-            myLine.Y1 = 0;
-            myLine.Y2 = 0;
-            myLine.HorizontalAlignment = HorizontalAlignment.Left;
-            myLine.VerticalAlignment = VerticalAlignment.Center;
-            myLine.StrokeThickness = 2;
-            canvas.Children.Add(myLine);
-
+            for (int i = 0; i <= length; i++)
+            {
+                Rectangle head = new Rectangle();
+                head.Fill = Brushes.Green;
+                head.Width = snakeSize.X;
+                head.Height = snakeSize.Y;
+                snake.Add(head);
+                Canvas.SetTop(head, 0);
+                Canvas.SetLeft(head, 0);
+                canvas.Children.Add(head);
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -78,7 +68,14 @@ namespace Tehtävä5
 
         private void GrowSnake()
         {
-
+            Rectangle body = new Rectangle();
+            body.Fill = Brushes.Green;
+            body.Width = snakeSize.X;
+            body.Height = snakeSize.Y;
+            Canvas.SetTop(body, Canvas.GetTop(snake.Last()));
+            Canvas.SetLeft(body, Canvas.GetTop(snake.Last()));
+            snake.Add(body);
+            canvas.Children.Add(body);
         }
 
         private void createApples()
@@ -87,36 +84,48 @@ namespace Tehtävä5
             Random r = new Random();
             for (int i = 0; i < 20; i++)
             {
-                Ellipse ellipse = new Ellipse();
-                ellipse.Fill = color;
-                ellipse.Width = 20;
-                ellipse.Height = 20;
-                Canvas.SetTop(ellipse, r.Next(0, 600));
-                Canvas.SetLeft(ellipse, r.Next(0, 1000));
-                apples.Add(ellipse);
-                canvas.Children.Add(ellipse);
+                Rectangle rect = new Rectangle();
+                rect.Fill = color;
+                rect.Width = appleSize.X;
+                rect.Height = appleSize.Y;
+                Canvas.SetTop(rect, r.Next(0, 600/(int)appleSize.Y)*appleSize.Y);
+                Canvas.SetLeft(rect, r.Next(0, 1000/(int)appleSize.X)*appleSize.X);
+                apples.Add(rect);
+                canvas.Children.Add(rect);
             }
         }
 
-        private void MoveApple(Ellipse apple)
+        private void MoveApple(Rectangle apple)
         {
             Random r = new Random();
-            Canvas.SetTop(apple, r.Next(0, 600));
-            Canvas.SetLeft(apple, r.Next(0, 1000));
+            Canvas.SetTop(apple, r.Next(0, 600/20)*20);
+            Canvas.SetLeft(apple, r.Next(0, 1000/20)*20);
         }
 
-        private void HandleCollasions()
+        private void HandleCollisions()
         {
-            foreach (Ellipse e in apples)
+            foreach (Rectangle e in apples)
             {
-                double y = Canvas.GetTop(e) + 10;
-                double x = Canvas.GetLeft(e) + 10;
-                //If the distance between the snake head circle and the apple is less than radius+radius there is a collasion
-                if (Math.Abs(Canvas.GetTop(snake.Last()) +25 - y) < 35 && Math.Abs(Canvas.GetLeft(snake.Last()) +25 - x) < 35)
+                double y = Canvas.GetTop(e);
+                double x = Canvas.GetLeft(e);
+                //Apples
+                if (Canvas.GetTop(snake[0]) == y && Canvas.GetLeft(snake[0]) == x)
                 {
                     MoveApple(e);
                     GrowSnake();
+                    speed = speed - 10;
                 }
+                //Walls
+                if(Canvas.GetTop(snake[0]) >= canvas.Height || Canvas.GetTop(snake[0]) < 0 || Canvas.GetLeft(snake[0]) >= canvas.Width || Canvas.GetLeft(snake[0]) < 0 )
+                {
+                    GameOver();
+                }
+                //Self
+                for(int i = 0; i < snake.Count; i++)
+                {
+                    Canvas.GetTop(snake[i]);
+                }
+
             }
         }
 
@@ -124,42 +133,42 @@ namespace Tehtävä5
         {
             switch (key)
             {
-                case Key.Up: Canvas.SetTop(snake.Last(), y - 5); break;
-                case Key.Down: Canvas.SetTop(snake.Last(), y + 5); break;
-                case Key.Left: Canvas.SetLeft(snake.Last(), x - 5); break;
-                case Key.Right: Canvas.SetLeft(snake.Last(), x + 5); break;
+                case Key.Up: Canvas.SetTop(snake[0], Canvas.GetTop(snake[0]) - 20); break;
+                case Key.Down: Canvas.SetTop(snake[0], Canvas.GetTop(snake[0]) + 20); break;
+                case Key.Left: Canvas.SetLeft(snake[0], Canvas.GetLeft(snake[0]) - 20); break;
+                case Key.Right: Canvas.SetLeft(snake[0], Canvas.GetLeft(snake[0]) + 20); break;
             }
-            int i = 1;
+            for(int i = snake.Count-1; i > 0; i--)
+            {
+                Canvas.SetTop(snake[i],Canvas.GetTop(snake[i - 1]));
+                Canvas.SetLeft(snake[i], Canvas.GetLeft(snake[i - 1]));
+            }
+        }
+
+        private void GameOver()
+        {
+            this.Close();
         }
 
         public void workingThread()
         {
             while (true)
             {
-                Dispatcher.Invoke((Action)(() =>
+                try {
+                    Dispatcher.Invoke((Action)(() =>
+                    {
+                        y = Canvas.GetTop(snake.Last());
+                        x = Canvas.GetLeft(snake.Last());
+                        Update();
+                        HandleCollisions();
+                    }));
+                    Thread.Sleep(speed);
+                }
+                catch (Exception e)
                 {
-                    y = Canvas.GetTop(snake.Last());
-                    x = Canvas.GetLeft(snake.Last());
-                    Update();
-                    DrawDemos();
-                    HandleCollasions();
-                }));
-                Thread.Sleep(25);
+
+                }
             }
-        }
-
-        private void DrawDemos()
-        {
-            Canvas.SetLeft(dot, Canvas.GetLeft(snake.Last()) + 22.5);
-            Canvas.SetTop(dot, Canvas.GetTop(snake.Last()) + 22.5);
-
-            myLine.Y1 = Canvas.GetTop(snake.Last()) + 25;
-            myLine.Y2 = Canvas.GetTop(apples[0]) + 10;
-            myLine.X1 = Canvas.GetLeft(snake.Last()) + 25;
-            myLine.X2 = Canvas.GetLeft(apples[0]) + 10;
-
-
-
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
