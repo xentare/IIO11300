@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Tehtävä5
+namespace Tehtävä6
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,24 +23,6 @@ namespace Tehtävä5
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void btnNewGame_Click(object sender, RoutedEventArgs e)
-        {
-            GameWindow gameWindow = new GameWindow(this);
-            gameWindow.Show();
-            Hide();
-
-        }
-
-        private void bntExit_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            Application.Current.Shutdown();
         }
     }
 }

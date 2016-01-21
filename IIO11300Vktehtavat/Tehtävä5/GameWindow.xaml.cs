@@ -25,11 +25,14 @@ namespace Tehtävä5
         List<Rectangle> snake = new List<Rectangle>();
         Key key;
         double x, y;
+        int score;
         Thread thread;
         Vector snakeSize = new Vector();
         Vector appleSize = new Vector();
+        SolidColorBrush color =  new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
         List<Rectangle> apples = new List<Rectangle>();
         int speed;
+        bool paused;
 
         public GameWindow(MainWindow window)
         {
@@ -43,20 +46,20 @@ namespace Tehtävä5
             appleSize.Y = 20;
             speed = 250;
             createApples();
-            Initialize(3);
+            Initialize();
         }
 
-        public void Initialize(int length)
+        public void Initialize()
         {
-            for (int i = length; i >= 0; i--)
+            for (int i = 2; i > 0; i--)
             {
                 Rectangle head = new Rectangle();
                 head.Fill = Brushes.Green;
                 head.Width = snakeSize.X;
                 head.Height = snakeSize.Y;
-                snake.Add(head);
                 Canvas.SetTop(head, 0);
                 Canvas.SetLeft(head, i*snakeSize.X);
+                snake.Add(head);
                 canvas.Children.Add(head);
             }
         }
@@ -64,6 +67,7 @@ namespace Tehtävä5
         private void Window_Closed(object sender, EventArgs e)
         {
             window.Show();
+            thread.Abort();
         }
 
         private void GrowSnake()
@@ -72,15 +76,14 @@ namespace Tehtävä5
             body.Fill = Brushes.Green;
             body.Width = snakeSize.X;
             body.Height = snakeSize.Y;
-            Canvas.SetTop(body, Canvas.GetTop(snake.Last()));
-            Canvas.SetLeft(body, Canvas.GetTop(snake.Last()));
+            Canvas.SetTop(body, y);
+            Canvas.SetLeft(body, x);
             snake.Add(body);
             canvas.Children.Add(body);
         }
 
         private void createApples()
         {
-            SolidColorBrush color = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
             Random r = new Random();
             for (int i = 0; i < 20; i++)
             {
@@ -114,6 +117,8 @@ namespace Tehtävä5
                     MoveApple(e);
                     GrowSnake();
                     speed = speed - 10;
+                    score++;
+                    Title = score.ToString();
                 }
                 //Walls
                 if(Canvas.GetTop(snake[0]) >= canvas.Height || Canvas.GetTop(snake[0]) < 0 || Canvas.GetLeft(snake[0]) >= canvas.Width || Canvas.GetLeft(snake[0]) < 0 )
@@ -125,7 +130,8 @@ namespace Tehtävä5
                 {
                     if(Canvas.GetTop(snake[0]) == Canvas.GetTop(snake[i]) && Canvas.GetLeft(snake[0]) == Canvas.GetLeft(snake[i]))
                     {
-                        GameOver();
+                        //GameOver();
+                        Console.WriteLine("Collision");
                     }
                 }
 
@@ -134,43 +140,52 @@ namespace Tehtävä5
 
         private void Update()
         {
+            y = Canvas.GetTop(snake.Last());
+            x = Canvas.GetLeft(snake.Last());
+            Rectangle head = new Rectangle();
+            Canvas.SetTop(head, y);
+            Canvas.SetLeft(head, x);
+            head.Fill = color;
+            head.Width = snakeSize.X;
+            head.Height = snakeSize.Y;
             switch (key)
-            {
-                case Key.Up: Canvas.SetTop(snake[0], Canvas.GetTop(snake[0]) - 20); break;
-                case Key.Down: Canvas.SetTop(snake[0], Canvas.GetTop(snake[0]) + 20); break;
-                case Key.Left: Canvas.SetLeft(snake[0], Canvas.GetLeft(snake[0]) - 20); break;
-                case Key.Right: Canvas.SetLeft(snake[0], Canvas.GetLeft(snake[0]) + 20); break;
+            { 
+                case Key.Up: Canvas.SetTop(head, y - 20); break;
+                case Key.Down: Canvas.SetTop(head, y + 20); break;
+                case Key.Left: Canvas.SetLeft(head, x - 20); break;
+                case Key.Right: Canvas.SetLeft(head, x + 20); break;
             }
-            for(int i = snake.Count-1; i > 0; i--)
-            {
-                Canvas.SetTop(snake[i],Canvas.GetTop(snake[i - 1]));
-                Canvas.SetLeft(snake[i], Canvas.GetLeft(snake[i - 1]));
-            }
+            snake.Add(head);
+            snake.RemoveAt(snake.Count-1);
         }
 
         private void GameOver()
         {
-            this.Close();
+            Close();
+            thread.Abort();
         }
 
         public void workingThread()
         {
             while (true)
             {
-                try {
-                    Dispatcher.Invoke((Action)(() =>
-                    {
-                        y = Canvas.GetTop(snake.Last());
-                        x = Canvas.GetLeft(snake.Last());
-                        Update();
-                        HandleCollisions();
-                    }));
-                    Thread.Sleep(speed);
-                }
-                catch (Exception e)
+                if (!paused)
                 {
+                        try {
+                        Dispatcher.Invoke((Action)(() =>
+                        {
+                            y = Canvas.GetTop(snake.Last());
+                            x = Canvas.GetLeft(snake.Last());
+                            HandleCollisions();
+                            Update();
+                        }));
+                    }
+                    catch (Exception e)
+                    {
 
+                    }
                 }
+                Thread.Sleep(speed);
             }
         }
 
@@ -182,6 +197,8 @@ namespace Tehtävä5
                 case Key.Down: if(key != Key.Up) key = Key.Down; break;
                 case Key.Left: if(key != Key.Right) key = Key.Left; break;
                 case Key.Right: if(key != Key.Left) key = Key.Right;  break;
+                case Key.P: paused = !paused; break;
+                case Key.Escape: Close(); thread.Abort(); break;
             }
         }
     }
