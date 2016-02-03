@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -10,28 +11,19 @@ namespace DBH4113
 {
     class DBH4113
     {
-        public static void GetPlayerData()
+        public static DataSet GetPlayerData(string queryString)
         {
-            try
+            DataSet dataset = new DataSet();
+            using(OleDbConnection connection = new OleDbConnection(Tehtävä9.Properties.Settings.Default.H4113ConnectionString) )
             {
-                string sql = "SELECT etunimi,sukunimi,siirtohinta,seura FROM pelaaja";
-                string connStr = Tehtävä9.Properties.Settings.Default.H4113ConnectionString;
-                Console.WriteLine(connStr);
-                using (SqlConnection conn = new SqlConnection(connStr))
-                {
-                    conn.Open();
-                    //using (SqlCommand cmd = new SqlCommand(sql, conn))
-                    //{
-                    //    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    //    DataSet ds = new DataSet();
-                    //    adapter.Fill(ds, "pelaajat");
-                    //    return ds.Tables["pelaajat"];
-                    //}
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = new OleDbCommand(queryString, connection);
+
+                connection.Open();
+
+                adapter.Fill(dataset, "pelaajat");
+
+                return dataset;
             }
         }
     }

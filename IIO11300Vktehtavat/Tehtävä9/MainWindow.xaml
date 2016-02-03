@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tehtävä9"
         mc:Ignorable="d"
-        Title="MainWindow" Height="252.905" Width="525">
+        Title="MainWindow" Height="252.905" Width="688.333">
     <Grid RenderTransformOrigin="0.518,0.494">
         <Label x:Name="label" Content="Etunumi" HorizontalAlignment="Left" Margin="18,24,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="Sukunimi" HorizontalAlignment="Left" Margin="18,50,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label2" Content="Siirtohinta" HorizontalAlignment="Left" Margin="18,76,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label3" Content="Seura" HorizontalAlignment="Left" Margin="18,103,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,0.515"/>
-        <ComboBox x:Name="seuraComboBox" HorizontalAlignment="Left" Margin="107,107,0,0" VerticalAlignment="Top" Width="120" Loaded="siirtohintaComboBox_Loaded" SelectionChanged="siirtohintaComboBox_SelectionChanged"/>
+        <ComboBox x:Name="seuraComboBox" HorizontalAlignment="Left" Margin="107,107,0,0" VerticalAlignment="Top" Width="120" Loaded="siirtohintaComboBox_Loaded"/>
         <Button x:Name="uusiPelaaja" Content="Luo uusi pelaaja" HorizontalAlignment="Left" Margin="232,24,0,0" VerticalAlignment="Top" Width="98" Click="uusiPelaaja_Click"/>
         <Button x:Name="talletaPelaajaButton" Content="Talleta pelaaja" HorizontalAlignment="Left" Margin="232,46,0,0" VerticalAlignment="Top" Width="98" Click="talletaPelaajaButton_Click"/>
         <Button x:Name="poistaPelaajaButton" Content="Poista pelaaja" HorizontalAlignment="Left" Margin="232,68,0,0" VerticalAlignment="Top" Width="98" Click="poistaPelaajaButton_Click"/>
@@ -22,10 +22,12 @@
             <TextBox x:Name="sukunimiTextBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="siirtohintaTextBox" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         </StackPanel>
-        <ListBox x:Name="pelaajatListbox" HorizontalAlignment="Left" Height="110" Margin="335,24,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="pelaajatListbox_SelectionChanged"/>
-        <StatusBar x:Name="statusBar" HorizontalAlignment="Left" Margin="0,188,0,0" Width="517">
+
+        <StatusBar x:Name="statusBar" Margin="0,188,0,0">
             <TextBlock x:Name="statusBarTextBlock" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
         </StatusBar>
         <Button x:Name="buttonSaveToDatabase" Content="Tallenna kantaan" HorizontalAlignment="Left" Margin="232,114,0,0" VerticalAlignment="Top" Width="98" Click="buttonSaveToDatabase_Click"/>
+        <DataGrid AutoGenerateColumns="True" x:Name="pelaajatDataGrid" HorizontalAlignment="Left" Margin="335,24,0,0" VerticalAlignment="Top" Height="135" Width="335"/>
+
     </Grid>
 </Window>
