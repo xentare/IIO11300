@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,16 @@ namespace Tehtävä9
 
             pelaajatListbox.ItemsSource = pelaajat;
             pelaajatListbox.DisplayMemberPath = "KokoNimi";
+            InitializeDBData();
+        }
+
+        private void InitializeDBData()
+        {
+            DBH4113.DBH4113.GetPlayerData();
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    Console.WriteLine(row);
+            //}
         }
 
         private void siirtohintaComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -148,6 +159,11 @@ namespace Tehtävä9
         private void lopetaButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void buttonSaveToDatabase_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
