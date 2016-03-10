@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="GameWindow" Height="640" Width="1080" Closed="Window_Closed" KeyDown="Window_KeyDown">
     <Grid x:Name="grid">
-        <Canvas x:Name="canvas" Background="AliceBlue" HorizontalAlignment="Left" Height="609" VerticalAlignment="Top" Width="1072"/>
+        <Canvas x:Name="canvas" Background="#FF343434" HorizontalAlignment="Left" Height="609" VerticalAlignment="Top" Width="1072"/>
 
     </Grid>
 </Window>

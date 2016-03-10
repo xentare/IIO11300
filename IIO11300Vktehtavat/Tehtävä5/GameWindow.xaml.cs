@@ -23,7 +23,7 @@ namespace Tehtävä5
     {
         MainWindow window;
         List<Rectangle> snake = new List<Rectangle>();
-        Key key;
+        Key key = Key.Right;
         double x, y;
         int score;
         Thread thread;
@@ -32,7 +32,7 @@ namespace Tehtävä5
         SolidColorBrush color =  new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
         List<Rectangle> apples = new List<Rectangle>();
         int speed;
-        bool paused;
+        bool paused = false;
 
         public GameWindow(MainWindow window)
         {
@@ -51,17 +51,17 @@ namespace Tehtävä5
 
         public void Initialize()
         {
-            for (int i = 2; i > 0; i--)
-            {
+            //for (int i = 3; i > 0; i--)
+            //{
                 Rectangle head = new Rectangle();
                 head.Fill = Brushes.Green;
                 head.Width = snakeSize.X;
                 head.Height = snakeSize.Y;
                 Canvas.SetTop(head, 0);
-                Canvas.SetLeft(head, i*snakeSize.X);
+                Canvas.SetLeft(head, 0);//i*snakeSize.X);
                 snake.Add(head);
                 canvas.Children.Add(head);
-            }
+            //}
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -112,26 +112,26 @@ namespace Tehtävä5
                 double y = Canvas.GetTop(e);
                 double x = Canvas.GetLeft(e);
                 //Apples
-                if (Canvas.GetTop(snake[0]) == y && Canvas.GetLeft(snake[0]) == x)
+                if (Canvas.GetTop(snake.Last()) == y && Canvas.GetLeft(snake.Last()) == x)
                 {
                     MoveApple(e);
                     GrowSnake();
-                    speed = speed - 10;
+                    speed = speed - speed/20;
                     score++;
                     Title = score.ToString();
                 }
                 //Walls
-                if(Canvas.GetTop(snake[0]) >= canvas.Height || Canvas.GetTop(snake[0]) < 0 || Canvas.GetLeft(snake[0]) >= canvas.Width || Canvas.GetLeft(snake[0]) < 0 )
+                if(Canvas.GetTop(snake.Last()) >= canvas.Height || Canvas.GetTop(snake.Last()) < 0 || Canvas.GetLeft(snake.Last()) >= canvas.Width || Canvas.GetLeft(snake.Last()) < 0 )
                 {
                     GameOver();
                 }
                 //Self
                 for(int i = 1; i < snake.Count; i++)
                 {
-                    if(Canvas.GetTop(snake[0]) == Canvas.GetTop(snake[i]) && Canvas.GetLeft(snake[0]) == Canvas.GetLeft(snake[i]))
+                    if(Canvas.GetTop(snake.Last()) == Canvas.GetTop(snake[i]) && Canvas.GetLeft(snake.Last()) == Canvas.GetLeft(snake[i]))
                     {
                         //GameOver();
-                        Console.WriteLine("Collision");
+                        //Console.WriteLine("Collision");
                     }
                 }
 
@@ -145,7 +145,7 @@ namespace Tehtävä5
             Rectangle head = new Rectangle();
             Canvas.SetTop(head, y);
             Canvas.SetLeft(head, x);
-            head.Fill = color;
+            //head.Fill = RandomBrush(random);
             head.Width = snakeSize.X;
             head.Height = snakeSize.Y;
             switch (key)
@@ -155,8 +155,47 @@ namespace Tehtävä5
                 case Key.Left: Canvas.SetLeft(head, x - 20); break;
                 case Key.Right: Canvas.SetLeft(head, x + 20); break;
             }
+            canvas.Children.Remove(snake[0]);
+            snake.RemoveAt(0);
             snake.Add(head);
-            snake.RemoveAt(snake.Count-1);
+            canvas.Children.Add(head);
+            Random random = new Random();
+            foreach(Rectangle r in snake)
+            {
+                r.Fill = RandomBrush(random);
+            }
+            foreach(Rectangle r in apples)
+            {
+                r.Fill = RandomBrush(random);
+            }
+            canvas.Background = RandomBrushV2(random);
+        }
+
+        public SolidColorBrush RandomBrush(Random random)
+        {
+            switch(random.Next(0, 10))
+            {
+                case 0: return Brushes.Azure; break;
+                case 1: return Brushes.CadetBlue; break;
+                case 2: return Brushes.Tomato; break;
+                case 3: return Brushes.Violet; break;
+                case 4: return Brushes.YellowGreen; break;
+                case 5: return Brushes.Violet; break;
+                case 6: return Brushes.Thistle; break;
+                case 7: return Brushes.SkyBlue; break;
+                case 8: return Brushes.Sienna; break;
+                case 9: return Brushes.Salmon; break;
+                case 10: return Brushes.RosyBrown; break;
+            }
+            return Brushes.Wheat;
+        }
+
+        public SolidColorBrush RandomBrushV2(Random r)
+        {
+            byte a = (byte)r.Next(0, 255);
+            byte b = (byte)r.Next(0, 255);
+            byte c = (byte)r.Next(0, 255);
+            return new SolidColorBrush(Color.FromRgb(a,b,c));
         }
 
         private void GameOver()
@@ -171,11 +210,12 @@ namespace Tehtävä5
             {
                 if (!paused)
                 {
-                        try {
+                    try {
                         Dispatcher.Invoke((Action)(() =>
                         {
                             y = Canvas.GetTop(snake.Last());
                             x = Canvas.GetLeft(snake.Last());
+                            Console.WriteLine(x);
                             HandleCollisions();
                             Update();
                         }));
