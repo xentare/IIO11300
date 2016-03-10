@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tehtävä9", "Tehtävä9\Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H6DataBinding", "..\..\IIO11300Torstai\H6DataBinding\H6DataBinding.csproj", "{E7C34D46-3B67-44DC-B846-6DE9780268C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H7ADONETConsole", "H7ADONETConsole\H7ADONETConsole.csproj", "{33944DDF-361B-4B3C-9EED-F7A72BB8D0A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H8ADONETWpf", "H8ADONETWpf\H8ADONETWpf.csproj", "{8912C0D5-8AC5-48E2-B377-713957BB6646}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,14 @@ Global
 		{E7C34D46-3B67-44DC-B846-6DE9780268C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7C34D46-3B67-44DC-B846-6DE9780268C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7C34D46-3B67-44DC-B846-6DE9780268C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33944DDF-361B-4B3C-9EED-F7A72BB8D0A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33944DDF-361B-4B3C-9EED-F7A72BB8D0A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33944DDF-361B-4B3C-9EED-F7A72BB8D0A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33944DDF-361B-4B3C-9EED-F7A72BB8D0A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8912C0D5-8AC5-48E2-B377-713957BB6646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8912C0D5-8AC5-48E2-B377-713957BB6646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8912C0D5-8AC5-48E2-B377-713957BB6646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8912C0D5-8AC5-48E2-B377-713957BB6646}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
